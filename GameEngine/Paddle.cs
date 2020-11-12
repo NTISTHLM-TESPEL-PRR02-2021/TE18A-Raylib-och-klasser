@@ -7,18 +7,20 @@ namespace GameEngine
   public class Paddle
   {
 
-    static List<Paddle> paddles = new List<Paddle>();
+    public static List<Paddle> paddles = new List<Paddle>();
 
-    public float x;
-    public float y;
+    // public float x;
+    // public float y;
+    public Rectangle rectangle;
 
     public KeyboardKey upKey;
     public KeyboardKey downKey;
 
     public Paddle(float xStart, float yStart, KeyboardKey up, KeyboardKey down)
     {
-      x = xStart;
-      y = yStart;
+      rectangle = new Rectangle(xStart, yStart, 20, 50);
+      // x = xStart;
+      // y = yStart;
       upKey = up;
       downKey = down;
 
@@ -29,11 +31,11 @@ namespace GameEngine
     {
       if (Raylib.IsKeyDown(upKey))
       {
-        y -= 4f;
+        rectangle.y -= 4f;
       }
       if (Raylib.IsKeyDown(downKey))
       {
-        y += 4f;
+        rectangle.y += 4f;
       }
     }
 
@@ -47,7 +49,7 @@ namespace GameEngine
 
     public void Draw()
     {
-      Raylib.DrawRectangle((int)x, (int)y, 20, 50, Color.BLACK);
+      Raylib.DrawRectangleRec(rectangle, Color.BLACK);
     }
 
     public static void DrawAll()
