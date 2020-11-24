@@ -11,15 +11,15 @@ namespace GameEngine
       Raylib.InitWindow(800, 600, "Game engine");
       Raylib.SetTargetFPS(60);
 
-      Paddle leftPaddle = new Paddle(10, 275, KeyboardKey.KEY_W, KeyboardKey.KEY_S);
-      Paddle rightPaddle = new Paddle(770, 275, KeyboardKey.KEY_UP, KeyboardKey.KEY_DOWN);
+      GameObject leftPaddle = new Paddle(10, 275, KeyboardKey.KEY_W, KeyboardKey.KEY_S);
+      GameObject rightPaddle = new Paddle(770, 275, KeyboardKey.KEY_UP, KeyboardKey.KEY_DOWN);
 
       Ball ball = new Ball();
 
       while (!Raylib.WindowShouldClose())
       {
-        Paddle.UpdateAll();
-        ball.Update();
+        GameObject.UpdateAll();
+        // ball.Update();
 
 
         Raylib.BeginDrawing();
@@ -34,8 +34,7 @@ namespace GameEngine
         //   Raylib.DrawText("NEJ", 10, 500, 64, Color.BLACK);
         // }
 
-        Paddle.DrawAll();
-        ball.Draw();
+        GameObject.DrawAll();
 
         Raylib.EndDrawing();
       }

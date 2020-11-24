@@ -4,17 +4,22 @@ using Raylib_cs;
 
 namespace GameEngine
 {
-  public class Ball
+  public class Ball : GameObject
   {
-    public Rectangle rectangle;
-    public Vector2 speed = new Vector2(2,2);
+    // public Rectangle rectangle;
+    public Vector2 speed = new Vector2(2, 2);
+
+    Texture2D ballTexture;
 
     public Ball()
     {
+      ballTexture = Raylib.LoadTexture("football.png");
       rectangle = new Rectangle(800 / 2 - 10, 600 / 2 - 10, 20, 20);
+
+      gameObjects.Add(this);
     }
 
-    public void Update()
+    public override void Update()
     {
       rectangle.x += speed.X;
       rectangle.y += speed.Y;
@@ -28,20 +33,27 @@ namespace GameEngine
         speed.Y = -speed.Y;
       }
 
-      foreach (Paddle p in Paddle.paddles)
+      foreach (GameObject p in GameObject.gameObjects)
       {
-        if (Raylib.CheckCollisionRecs(rectangle, p.rectangle))
+        if (p != this)
         {
-          speed.X = -speed.X;
+          if (Raylib.CheckCollisionRecs(rectangle, p.rectangle))
+          {
+            speed.X = -speed.X;
+          }
         }
+
       }
-    
-
     }
 
-    public void Draw()
-    {
-      Raylib.DrawRectangleRec(rectangle, Color.BLACK);
-    }
+    // public override void Draw()
+    // {
+    //   Raylib.DrawTexture(ballTexture, (int)rectangle.x, (int) rectangle.y, Color.WHITE);
+    // }
+
+    // public void Draw()
+    // {
+    //   Raylib.DrawRectangleRec(rectangle, Color.BLACK);
+    // }
   }
 }
